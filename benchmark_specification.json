@@ -1,0 +1,417 @@
+[
+  {
+    "field_name": "Workload Number",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "422"
+  },
+  {
+    "field_name": "Workload Name",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "ResNet-50 BF16 Inference Throughput Sweep"
+  },
+  {
+    "field_name": "GPU Vendor",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "NVIDIA"
+  },
+  {
+    "field_name": "Repo Name",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "gpu-bench-nvidia-resnet50-pytorch-inference-ubu2604"
+  },
+  {
+    "field_name": "Main Goal",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Measure ResNet-50 BF16 inference throughput"
+  },
+  {
+    "field_name": "Validation Objective",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Validates one inference sweep over yaml batch sizes with random weights and synthetic images"
+  },
+  {
+    "field_name": "Metrics",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "#1: Largest-batch inference throughput, images/s (images_per_sec); #2: Largest-batch per-image latency, ms (per_image_latency_msec); #3: Largest-batch p99 latency, ms (batch_p99_latency_msec); #4: Largest-batch GPU utilization (gpu_utilization_percent); #5: Peak GPU memory at largest batch, GB (peak_gpu_memory_gb)"
+  },
+  {
+    "field_name": "Command Tools Executed",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Run gpu-bench-resnet50-pytorch-inference.py via collect_resnet50_infer.py; nvidia-smi is sampled on a background thread during the timed loop for GPU utilization, and peak memory comes from torch.cuda.max_memory_allocated"
+  },
+  {
+    "field_name": "Command Execution Details and Purpose",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list using torchvision ResNet-50 with random weights, synthetic bf16 images, and torch.no_grad(), emit one RESULT line per batch plus a summary, to measure inference images/s and latency. This is not a five-minute server loop"
+  },
+  {
+    "field_name": "Command Methodology",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list with random-weight ResNet-50, synthetic bf16 images, and torch.no_grad. Emit one RESULT line per batch plus a summary. This is not a five-minute server loop"
+  },
+  {
+    "field_name": "Execution Description With Parameters",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Runs gpu-bench-resnet50-pytorch-inference.py with random ResNet-50 weights, synthetic images, and bf16 under torch.no_grad(). batch_size: comma-separated sweep. image_size, dtype/precision bf16, warmup_iters, and num_iterations come from yaml. This is a local inference sweep, not a five-minute server and not TorchBench"
+  },
+  {
+    "field_name": "Execution Domain",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "GPU Compute / CUDA"
+  },
+  {
+    "field_name": "Workload Category",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Training, Inference, Model Workloads"
+  },
+  {
+    "field_name": "Workload Type",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Benchmark"
+  },
+  {
+    "field_name": "Target Hardware",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "GPU"
+  },
+  {
+    "field_name": "GPU Model",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "H100 SXM 80GB"
+  },
+  {
+    "field_name": "Raw Output Format",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "raw_results.csv with one row per batch size and a summary row. The summary copies the largest batch and also stores case_* copies"
+  },
+  {
+    "field_name": "Primary Record Granularity",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "one row per batch size, plus one summary row"
+  },
+  {
+    "field_name": "Raw Output Example",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "check,batch_size,headline_batch_size,dtype,status,images_per_sec,per_image_latency_msec,batch_p99_latency_msec,gpu_utilization_percent,peak_gpu_memory_gb\nsummary,32,32,bf16,ok,900,1.1,40,95,8"
+  },
+  {
+    "field_name": "run_benchmark Command Plus Options for Smoke Run",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "bash run_benchmark.sh --smoke --validate --device-id 0 --num-gpus 1 --parallel-strategy none --weights random --dtype bf16 --precision bf16 --image-source synthetic --image-size 64 --use-channels-last true --batch-size 1,2 --num-workers 0 --warmup-iters 1 --num-iterations 3"
+  },
+  {
+    "field_name": "run_benchmark Command Plus Options for Baseline Run",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "bash run_benchmark.sh --baseline --validate --device-id 0 --num-gpus 1 --parallel-strategy none --weights random --dtype bf16 --precision bf16 --image-source synthetic --image-size 224 --use-channels-last true --batch-size 1,2,4,8,16,32 --num-workers 0 --warmup-iters 5 --num-iterations 13350"
+  },
+  {
+    "field_name": "run_benchmark Command Plus Options for Extended Run",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "bash run_benchmark.sh --extended --validate --device-id 0 --num-gpus 1 --parallel-strategy none --weights random --dtype bf16 --precision bf16 --image-source synthetic --image-size 224 --use-channels-last true --batch-size 1,2,4,8,16,32,64,128 --num-workers 0 --warmup-iters 10 --num-iterations 16200"
+  },
+  {
+    "field_name": "Output Fields / Metrics to Parse",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "images_per_sec, per_image_latency_msec, batch_p99_latency_msec, gpu_utilization_percent, peak_gpu_memory_gb"
+  },
+  {
+    "field_name": "Success Criteria",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "process exits 0 and a CSV row exists for every requested batch size (no OOM)"
+  },
+  {
+    "field_name": "Parser and Normalization Notes",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Warmup is not timed; one RESULT row per batch size plus a summary row. gpu_utilization_percent is the mean of nvidia-smi readings taken every 0.1 s during the timed loop, or na (timed loop too short to sample) / na (nvidia-smi gave no utilization reading); the summary averages the batches that have a number"
+  },
+  {
+    "field_name": "Hardware Config",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "NVIDIA H100 SXM host (20+ vCPUs, 128+ GB RAM, local NVMe), 1x H100 SXM (80 GB HBM3, sm_90, 132 SMs)"
+  },
+  {
+    "field_name": "GPU Architecture",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "sm_90 (NVIDIA Hopper H100)"
+  },
+  {
+    "field_name": "Framework",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Bash, SQLite, Python, PyYAML, CUDA Runtime, PyTorch-CUDA, torchvision, ResNet-50"
+  },
+  {
+    "field_name": "OS Version",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Ubuntu 26.04"
+  },
+  {
+    "field_name": "Kernel Version",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "kernel 7.0.0"
+  },
+  {
+    "field_name": "Runtime Language",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Python"
+  },
+  {
+    "field_name": "Container Base Image",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "N/A - host-native Ubuntu 26.04"
+  },
+  {
+    "field_name": "Python Version",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Python 3.14.4"
+  },
+  {
+    "field_name": "GPU Runtime Version (was ROCm Version)",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "CUDA 13.3"
+  },
+  {
+    "field_name": "BLAS Version (was rocBLAS version)",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "N/A - rocBLAS not used"
+  },
+  {
+    "field_name": "Mistral-7B Version",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "N/A - Mistral not used"
+  },
+  {
+    "field_name": "PyTorch Version",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "PyTorch 2.7.1+cu128"
+  },
+  {
+    "field_name": "torchvision Version",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "torchvision 0.22.1+cu128"
+  },
+  {
+    "field_name": "vLLM Version",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "N/A - vLLM not used"
+  },
+  {
+    "field_name": "vLLM Wheel/Source Index",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "N/A - vLLM not used"
+  },
+  {
+    "field_name": "SGLang Version",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "N/A - SGLang not used"
+  },
+  {
+    "field_name": "SGLang Repository/Commit",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "N/A - SGLang not used"
+  },
+  {
+    "field_name": "Cmake Version",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "N/A - CMake not used"
+  },
+  {
+    "field_name": "g++ Version",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "N/A - CMake not used"
+  },
+  {
+    "field_name": "Known Runtime Constraints (<=35 Words Each)",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Inference throughput. num_gpus is unused. batch_p99_latency_msec is the 99th percentile of timed steps. Headline columns copy the largest batch onto every row"
+  },
+  {
+    "field_name": "Parameter_01",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "device_id"
+  },
+  {
+    "field_name": "Parameter_02",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "num_gpus"
+  },
+  {
+    "field_name": "Parameter_03",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "parallel_strategy"
+  },
+  {
+    "field_name": "Parameter_04",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "weights"
+  },
+  {
+    "field_name": "Parameter_05",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "dtype"
+  },
+  {
+    "field_name": "Parameter_06",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "precision"
+  },
+  {
+    "field_name": "Parameter_07",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "image_source"
+  },
+  {
+    "field_name": "Parameter_08",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "image_size"
+  },
+  {
+    "field_name": "Parameter_09",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "use_channels_last"
+  },
+  {
+    "field_name": "Parameter_10",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "batch_size"
+  },
+  {
+    "field_name": "Parameter_11",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "num_workers"
+  },
+  {
+    "field_name": "Parameter_12",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "warmup_iters"
+  },
+  {
+    "field_name": "Parameter_13",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "num_iterations"
+  },
+  {
+    "field_name": "Parameter_14",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "-"
+  },
+  {
+    "field_name": "Parameter_15",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "-"
+  },
+  {
+    "field_name": "Parameter_16",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "-"
+  },
+  {
+    "field_name": "Parameter_17",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "-"
+  },
+  {
+    "field_name": "Parameter_18",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "-"
+  },
+  {
+    "field_name": "Parameter_19",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "-"
+  },
+  {
+    "field_name": "Parameter_20",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "-"
+  },
+  {
+    "field_name": "GPU Architecutre ID",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "sm_90"
+  },
+  {
+    "field_name": "GPU Kernel Execution Runtime (HIP or CUDA)",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "CUDA"
+  },
+  {
+    "field_name": "System Monitoring Tool",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "nvidia-smi / DCGM"
+  },
+  {
+    "field_name": "Validation & Diagnostics Suite",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "N/A - NVIDIA DCGM Diagnostics not used"
+  },
+  {
+    "field_name": "Collective Communication Library",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "N/A - NCCL not used"
+  },
+  {
+    "field_name": "Convolution or DNN Library",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "cuDNN"
+  },
+  {
+    "field_name": "Benchmark Schema Version",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "1.3.0"
+  },
+  {
+    "field_name": "Schema Last Updated",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "2026-09-05"
+  },
+  {
+    "field_name": "Installation and Execution Summary",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list using torchvision ResNet-50 with random weights, synthetic bf16 images, and torch.no_grad(), emit one RESULT line per batch plus a summary, to measure inference images/s and latency. This is not a five-minute server loop"
+  },
+  {
+    "field_name": "Workload Command Line Executable",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Run gpu-bench-resnet50-pytorch-inference.py via collect_resnet50_infer.py; nvidia-smi is sampled on a background thread during the timed loop for GPU utilization, and peak memory comes from torch.cuda.max_memory_allocated"
+  },
+  {
+    "field_name": "ROCm Version",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "CUDA 13.3"
+  },
+  {
+    "field_name": "rocBLAS Version",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "N/A - rocBLAS not used"
+  },
+  {
+    "field_name": "Execution Summary (Run and Measure)",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list using torchvision ResNet-50 with random weights, synthetic bf16 images, and torch.no_grad(), emit one RESULT line per batch plus a summary, to measure inference images/s and latency. This is not a five-minute server loop"
+  },
+  {
+    "field_name": "nVidia Porting Instructions (Reference Only)",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Native NVIDIA CUDA workload. Execute on the stated Ubuntu release with the host NVIDIA driver and CUDA userspace. ROCm porting notes do not apply."
+  },
+  {
+    "field_name": "AMD nVidia Applicable",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "NVIDIA"
+  },
+  {
+    "field_name": "Model Context Protocols",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "None"
+  },
+  {
+    "field_name": "Profile Parameter Values",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Parameters_SmokeBaselineExtend",
+    "value": "{\"device_id\": {\"smoke\": \"0\", \"baseline\": \"0\", \"extended\": \"0\", \"notes\": \"\"}, \"weights\": {\"smoke\": \"random\", \"baseline\": \"random\", \"extended\": \"random\", \"notes\": \"\"}, \"dtype\": {\"smoke\": \"bf16\", \"baseline\": \"bf16\", \"extended\": \"bf16\", \"notes\": \"\"}, \"precision\": {\"smoke\": \"bf16\", \"baseline\": \"bf16\", \"extended\": \"bf16\", \"notes\": \"\"}, \"image_source\": {\"smoke\": \"synthetic\", \"baseline\": \"synthetic\", \"extended\": \"synthetic\", \"notes\": \"\"}, \"image_size\": {\"smoke\": \"64\", \"baseline\": \"224\", \"extended\": \"224\", \"notes\": \"\"}, \"batch_size\": {\"smoke\": \"1,2\", \"baseline\": \"1,2,4,8,16,32\", \"extended\": \"1,2,4,8,16,32,64,128\", \"notes\": \"Sweep/list value. Command column documents it; omit this flag so yaml expands cases.\"}, \"num_workers\": {\"smoke\": \"0\", \"baseline\": \"0\", \"extended\": \"0\", \"notes\": \"\"}, \"warmup_iters\": {\"smoke\": \"1\", \"baseline\": \"5\", \"extended\": \"10\", \"notes\": \"\"}, \"num_iterations\": {\"smoke\": \"3\", \"baseline\": \"13350\", \"extended\": \"16200\", \"notes\": \"H100 2026-08-16 probe 100 -> 13s (6 batch sizes). Predict 1600 -> ~208s. Do not copy AMD 6400. Extended 4600 extrapolated ~10:00, not tested. Retimed 2026-08-17 toward 3-4 min baseline; extended scaled by the same factor. 2026-08-18 retune: baseline>=3min / extended>=10min or extended~15min; NVIDIA copied from AMD. | 2026-09-28 GARY_LEDGER (aggregated_runtime_ledgers_101_201_301_401_20260928_9am; targets baseline 3-5 min, extended 8-15 min): 6400/16200 -> 4500/4600. baseline 6400 measured 5:33/5:37; extended 16200 measured 45:11 (one run). Scaled linearly to ~3:55 / ~12:50. Extended covers batch sizes 64/128, so its per-iteration cost is higher than baseline. Unconfirmed by a fresh run.\"}, \"num_gpus\": {\"smoke\": \"1\", \"baseline\": \"1\", \"extended\": \"1\", \"notes\": \"\"}, \"parallel_strategy\": {\"smoke\": \"none\", \"baseline\": \"none\", \"extended\": \"none\", \"notes\": \"\"}, \"use_channels_last\": {\"smoke\": \"true\", \"baseline\": \"true\", \"extended\": \"true\", \"notes\": \"\"}}"
+  },
+  {
+    "field_name": "Profile Command Authorship",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Parameters_SmokeBaselineExtend",
+    "value": "Workload_Definitions run_benchmark command columns are generated from Parameters_SmokeBaselineExtend. Author parameter values on the Parameters_SmokeBaselineExtend sheet only. Do not invent smoke/baseline/extended sweep numbers. Sweep/list flags in the command cells are documentary; omit those flags so config/benchmark_config.yaml expands cases."
+  }
+]
