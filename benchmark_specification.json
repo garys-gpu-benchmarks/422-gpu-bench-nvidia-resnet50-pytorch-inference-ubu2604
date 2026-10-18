@@ -37,7 +37,7 @@
   {
     "field_name": "Metrics",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "#1: Largest-batch inference throughput, images/s (images_per_sec); #2: Largest-batch per-image latency, ms (per_image_latency_msec); #3: Largest-batch p99 latency, ms (batch_p99_latency_msec); #4: Largest-batch GPU utilization (gpu_utilization_percent); #5: Peak GPU memory at largest batch, GB (peak_gpu_memory_gb)"
+    "value": "#1: Largest-batch inference throughput, images/s (images_per_sec); #2: Largest-batch per-image latency, ms (per_image_latency_msec); #3: Largest-batch latency max, ms (batch_latency_max_msec); #4: Largest-batch GPU utilization (gpu_utilization_percent); #5: Peak GPU memory at largest batch, GB (peak_gpu_memory_gb)"
   },
   {
     "field_name": "Command Tools Executed",
@@ -157,7 +157,7 @@
   {
     "field_name": "Container Base Image",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "N/A - host-native Ubuntu 26.04"
+    "value": "Provider-supplied Ubuntu 26.04 container; CUDA 13.3 toolkit installed by setup"
   },
   {
     "field_name": "Python Version",
@@ -167,12 +167,12 @@
   {
     "field_name": "GPU Runtime Version (was ROCm Version)",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "CUDA 13.3"
+    "value": "CUDA 13.3 (nvcc 13.3.73). Driver 580.159.04 reports CUDA 13.0"
   },
   {
     "field_name": "BLAS Version (was rocBLAS version)",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "N/A - rocBLAS not used"
+    "value": "N/A - cuBLAS not used"
   },
   {
     "field_name": "Mistral-7B Version",
@@ -182,12 +182,12 @@
   {
     "field_name": "PyTorch Version",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "PyTorch 2.7.1+cu128"
+    "value": "PyTorch 2.13.0+cu130"
   },
   {
     "field_name": "torchvision Version",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "torchvision 0.22.1+cu128"
+    "value": "torchvision 0.28.0+cu130"
   },
   {
     "field_name": "vLLM Version",
@@ -217,7 +217,7 @@
   {
     "field_name": "g++ Version",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "N/A - CMake not used"
+    "value": "N/A - g++ not used"
   },
   {
     "field_name": "Known Runtime Constraints (<=35 Words Each)",
@@ -362,7 +362,7 @@
   {
     "field_name": "Schema Last Updated",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "2026-09-05"
+    "value": "2026-10-17"
   },
   {
     "field_name": "Installation and Execution Summary",
@@ -377,12 +377,12 @@
   {
     "field_name": "ROCm Version",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "CUDA 13.3"
+    "value": "CUDA 13.3 (nvcc 13.3.73). Driver 580.159.04 reports CUDA 13.0"
   },
   {
     "field_name": "rocBLAS Version",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "N/A - rocBLAS not used"
+    "value": "N/A - cuBLAS not used"
   },
   {
     "field_name": "Execution Summary (Run and Measure)",
