@@ -20,7 +20,7 @@ Runs gpu-bench-resnet50-pytorch-inference.py with random ResNet-50 weights, synt
 | batch_size | `--batch-size` | smoke=1,2, baseline=1,2,4,8,16,32, extended=1,2,4,8,16,32,64,128 | 1,2,4,8,16,32 | From Parameter list; see Execution Description With Parameters. |
 | num_workers | `--num-workers` | smoke=0, baseline=0, extended=0 | 0 | From Parameter list; see Execution Description With Parameters. |
 | warmup_iters | `--warmup-iters` | smoke=1, baseline=5, extended=10 | 5 | From Parameter list; see Execution Description With Parameters. |
-| num_iterations | `--num-iterations` | smoke=3, baseline=13350, extended=16200 | 13350 | From Parameter list; see Execution Description With Parameters. |
+| num_iterations | `--num-iterations` | smoke=3, baseline=4420, extended=10500 | 4420 | From Parameter list; see Execution Description With Parameters. |
 
 ## Invocation
 
