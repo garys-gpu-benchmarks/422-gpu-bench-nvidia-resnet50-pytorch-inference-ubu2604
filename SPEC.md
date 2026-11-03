@@ -2,25 +2,19 @@
 
 ## Execution Description
 
-Runs gpu-bench-resnet50-pytorch-inference.py with random ResNet-50 weights, synthetic images, and bf16 under torch.no_grad(). batch_size: comma-separated sweep. image_size, dtype/precision bf16, warmup_iters, and num_iterations come from yaml. This is a local inference sweep, not a five-minute server and not TorchBench Sweep dimensions: device_id, num_gpus, parallel_strategy, weights, dtype, precision, image_source, image_size.
+Runs gpu-bench-resnet50-pytorch-inference.py with random ResNet-50 weights, synthetic images, and bf16 under torch.no_grad(). batch_size: comma-separated sweep. image_size, dtype/precision bf16, warmup_iters, and num_iterations come from yaml. This is a local inference sweep, not a five-minute server and not TorchBench Sweep dimensions: device_id, dtype, image_size, batch_size, warmup_iters, num_iterations, use_channels_last.
 
 ## Parameters
 
 | Parameter | CLI Flag | Tested Values | Default | Description |
 | --- | --- | --- | --- | --- |
 | device_id | `--device-id` | smoke=0, baseline=0, extended=0 | 0 | From Parameter list; see Execution Description With Parameters. |
-| num_gpus | `--num-gpus` | smoke=1, baseline=1, extended=1 | 1 | From Parameter list; see Execution Description With Parameters. |
-| parallel_strategy | `--parallel-strategy` | TBD — confirm against tool documentation | TBD — confirm against tool documentation | From Parameter list; see Execution Description With Parameters. |
-| weights | `--weights` | smoke=random, baseline=random, extended=random | random | From Parameter list; see Execution Description With Parameters. |
 | dtype | `--dtype` | smoke=bf16, baseline=bf16, extended=bf16 | bf16 | From Parameter list; see Execution Description With Parameters. |
-| precision | `--precision` | smoke=bf16, baseline=bf16, extended=bf16 | bf16 | From Parameter list; see Execution Description With Parameters. |
-| image_source | `--image-source` | smoke=synthetic, baseline=synthetic, extended=synthetic | synthetic | From Parameter list; see Execution Description With Parameters. |
 | image_size | `--image-size` | smoke=64, baseline=224, extended=224 | 224 | From Parameter list; see Execution Description With Parameters. |
-| use_channels_last | `--use-channels-last` | smoke=true, baseline=true, extended=true | true | From Parameter list; see Execution Description With Parameters. |
 | batch_size | `--batch-size` | smoke=1,2, baseline=1,2,4,8,16,32, extended=1,2,4,8,16,32,64,128 | 1,2,4,8,16,32 | From Parameter list; see Execution Description With Parameters. |
-| num_workers | `--num-workers` | smoke=0, baseline=0, extended=0 | 0 | From Parameter list; see Execution Description With Parameters. |
 | warmup_iters | `--warmup-iters` | smoke=1, baseline=5, extended=10 | 5 | From Parameter list; see Execution Description With Parameters. |
 | num_iterations | `--num-iterations` | smoke=3, baseline=4420, extended=10500 | 4420 | From Parameter list; see Execution Description With Parameters. |
+| use_channels_last | `--use-channels-last` | smoke=true, baseline=true, extended=true | true | From Parameter list; see Execution Description With Parameters. |
 
 ## Invocation
 

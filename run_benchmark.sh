@@ -46,18 +46,12 @@ Validation and logging:
 
 Workload options:
   --device-id <value>            Override device_id
-  --num-gpus <value>            Override num_gpus
-  --parallel-strategy <value>            Override parallel_strategy
-  --weights <value>            Override weights
   --dtype <value>            Override dtype
-  --precision <value>            Override precision
-  --image-source <value>            Override image_source
   --image-size <value>            Override image_size
-  --use-channels-last <value>            Override use_channels_last
   --batch-size <value>            Override batch_size
-  --num-workers <value>            Override num_workers
   --warmup-iters <value>            Override warmup_iters
   --num-iterations <value>            Override num_iterations
+  --use-channels-last <value>            Override use_channels_last
 
 Information:
   --specification               Print this workload's specification and exit
@@ -92,18 +86,12 @@ LOG_LEVEL_VALUE="INFO"
 OUTPUT_FORMAT=""
 SAVE_OPTIONS_FILE=""
 DEVICE_ID=""
-NUM_GPUS=""
-PARALLEL_STRATEGY=""
-WEIGHTS=""
 DTYPE=""
-PRECISION=""
-IMAGE_SOURCE=""
 IMAGE_SIZE=""
-USE_CHANNELS_LAST=""
 BATCH_SIZE=""
-NUM_WORKERS=""
 WARMUP_ITERS=""
 NUM_ITERATIONS=""
+USE_CHANNELS_LAST=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -125,18 +113,12 @@ while [[ $# -gt 0 ]]; do
     --output-format) OUTPUT_FORMAT="${2:-}"; shift 2 ;;
     --save-options-file) SAVE_OPTIONS_FILE="${2:-}"; shift 2 ;;
     --device-id) DEVICE_ID="${2:-}"; shift 2 ;;
-    --num-gpus) NUM_GPUS="${2:-}"; shift 2 ;;
-    --parallel-strategy) PARALLEL_STRATEGY="${2:-}"; shift 2 ;;
-    --weights) WEIGHTS="${2:-}"; shift 2 ;;
     --dtype) DTYPE="${2:-}"; shift 2 ;;
-    --precision) PRECISION="${2:-}"; shift 2 ;;
-    --image-source) IMAGE_SOURCE="${2:-}"; shift 2 ;;
     --image-size) IMAGE_SIZE="${2:-}"; shift 2 ;;
-    --use-channels-last) USE_CHANNELS_LAST="${2:-}"; shift 2 ;;
     --batch-size) BATCH_SIZE="${2:-}"; shift 2 ;;
-    --num-workers) NUM_WORKERS="${2:-}"; shift 2 ;;
     --warmup-iters) WARMUP_ITERS="${2:-}"; shift 2 ;;
     --num-iterations) NUM_ITERATIONS="${2:-}"; shift 2 ;;
+    --use-channels-last) USE_CHANNELS_LAST="${2:-}"; shift 2 ;;
     --help|--specification|--matrix-definition) shift ;;
     *) die "Unknown option: $1" ;;
   esac
@@ -176,36 +158,24 @@ PY
 }
 
 DEVICE_ID="${DEVICE_ID:-$(yaml_get device_id)}"
-NUM_GPUS="${NUM_GPUS:-$(yaml_get num_gpus)}"
-PARALLEL_STRATEGY="${PARALLEL_STRATEGY:-$(yaml_get parallel_strategy)}"
-WEIGHTS="${WEIGHTS:-$(yaml_get weights)}"
 DTYPE="${DTYPE:-$(yaml_get dtype)}"
-PRECISION="${PRECISION:-$(yaml_get precision)}"
-IMAGE_SOURCE="${IMAGE_SOURCE:-$(yaml_get image_source)}"
 IMAGE_SIZE="${IMAGE_SIZE:-$(yaml_get image_size)}"
-USE_CHANNELS_LAST="${USE_CHANNELS_LAST:-$(yaml_get use_channels_last)}"
 BATCH_SIZE="${BATCH_SIZE:-$(yaml_get batch_size)}"
-NUM_WORKERS="${NUM_WORKERS:-$(yaml_get num_workers)}"
 WARMUP_ITERS="${WARMUP_ITERS:-$(yaml_get warmup_iters)}"
 NUM_ITERATIONS="${NUM_ITERATIONS:-$(yaml_get num_iterations)}"
+USE_CHANNELS_LAST="${USE_CHANNELS_LAST:-$(yaml_get use_channels_last)}"
 OUTPUT_FORMAT="${OUTPUT_FORMAT:-$(yaml_get output_format)}"
 OUTPUT_FORMAT="${OUTPUT_FORMAT:-csv}"
 
 BENCHMARK_RUN_COMMAND="bash run_benchmark.sh --${PROFILE}"
 [[ "${VALIDATE}" -eq 1 ]] && BENCHMARK_RUN_COMMAND+=" --validate"
 [[ -n "${DEVICE_ID}" ]] && BENCHMARK_RUN_COMMAND+=" --device-id $(printf %q "${DEVICE_ID}")"
-[[ -n "${NUM_GPUS}" ]] && BENCHMARK_RUN_COMMAND+=" --num-gpus $(printf %q "${NUM_GPUS}")"
-[[ -n "${PARALLEL_STRATEGY}" ]] && BENCHMARK_RUN_COMMAND+=" --parallel-strategy $(printf %q "${PARALLEL_STRATEGY}")"
-[[ -n "${WEIGHTS}" ]] && BENCHMARK_RUN_COMMAND+=" --weights $(printf %q "${WEIGHTS}")"
 [[ -n "${DTYPE}" ]] && BENCHMARK_RUN_COMMAND+=" --dtype $(printf %q "${DTYPE}")"
-[[ -n "${PRECISION}" ]] && BENCHMARK_RUN_COMMAND+=" --precision $(printf %q "${PRECISION}")"
-[[ -n "${IMAGE_SOURCE}" ]] && BENCHMARK_RUN_COMMAND+=" --image-source $(printf %q "${IMAGE_SOURCE}")"
 [[ -n "${IMAGE_SIZE}" ]] && BENCHMARK_RUN_COMMAND+=" --image-size $(printf %q "${IMAGE_SIZE}")"
-[[ -n "${USE_CHANNELS_LAST}" ]] && BENCHMARK_RUN_COMMAND+=" --use-channels-last $(printf %q "${USE_CHANNELS_LAST}")"
 [[ -n "${BATCH_SIZE}" ]] && BENCHMARK_RUN_COMMAND+=" --batch-size $(printf %q "${BATCH_SIZE}")"
-[[ -n "${NUM_WORKERS}" ]] && BENCHMARK_RUN_COMMAND+=" --num-workers $(printf %q "${NUM_WORKERS}")"
 [[ -n "${WARMUP_ITERS}" ]] && BENCHMARK_RUN_COMMAND+=" --warmup-iters $(printf %q "${WARMUP_ITERS}")"
 [[ -n "${NUM_ITERATIONS}" ]] && BENCHMARK_RUN_COMMAND+=" --num-iterations $(printf %q "${NUM_ITERATIONS}")"
+[[ -n "${USE_CHANNELS_LAST}" ]] && BENCHMARK_RUN_COMMAND+=" --use-channels-last $(printf %q "${USE_CHANNELS_LAST}")"
 set_benchmark_run_command "${BENCHMARK_RUN_COMMAND}"
 
 HOSTNAME_VALUE="$(hostname -s 2>/dev/null || hostname)"
@@ -249,18 +219,12 @@ run_collection() {
   fi
   grep -q -- '--output-format' <<<"${help}" && collect_args+=(--output-format "${OUTPUT_FORMAT}")
   grep -q -- '--device-id' <<<"${help}" && collect_args+=(--device-id "${DEVICE_ID}")
-  grep -q -- '--num-gpus' <<<"${help}" && collect_args+=(--num-gpus "${NUM_GPUS}")
-  grep -q -- '--parallel-strategy' <<<"${help}" && collect_args+=(--parallel-strategy "${PARALLEL_STRATEGY}")
-  grep -q -- '--weights' <<<"${help}" && collect_args+=(--weights "${WEIGHTS}")
   grep -q -- '--dtype' <<<"${help}" && collect_args+=(--dtype "${DTYPE}")
-  grep -q -- '--precision' <<<"${help}" && collect_args+=(--precision "${PRECISION}")
-  grep -q -- '--image-source' <<<"${help}" && collect_args+=(--image-source "${IMAGE_SOURCE}")
   grep -q -- '--image-size' <<<"${help}" && collect_args+=(--image-size "${IMAGE_SIZE}")
-  grep -q -- '--use-channels-last' <<<"${help}" && collect_args+=(--use-channels-last "${USE_CHANNELS_LAST}")
   grep -q -- '--batch-size' <<<"${help}" && collect_args+=(--batch-size "${BATCH_SIZE}")
-  grep -q -- '--num-workers' <<<"${help}" && collect_args+=(--num-workers "${NUM_WORKERS}")
   grep -q -- '--warmup-iters' <<<"${help}" && collect_args+=(--warmup-iters "${WARMUP_ITERS}")
   grep -q -- '--num-iterations' <<<"${help}" && collect_args+=(--num-iterations "${NUM_ITERATIONS}")
+  grep -q -- '--use-channels-last' <<<"${help}" && collect_args+=(--use-channels-last "${USE_CHANNELS_LAST}")
 
   printf -v collect_cmd '%q ' "${PYTHON_BIN}" scripts/collect_workload.py "${collect_args[@]}"
   echo "[RUN] ${collect_cmd}"
