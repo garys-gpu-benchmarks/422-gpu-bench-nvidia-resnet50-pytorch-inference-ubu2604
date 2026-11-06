@@ -2,7 +2,7 @@
 
 ## Execution Description
 
-Runs gpu-bench-resnet50-pytorch-inference.py with random ResNet-50 weights, synthetic images, and bf16 under torch.no_grad(). batch_size: comma-separated sweep. image_size, dtype/precision bf16, warmup_iters, and num_iterations come from yaml. This is a local inference sweep, not a five-minute server and not TorchBench Sweep dimensions: device_id, dtype, image_size, batch_size, warmup_iters, num_iterations, use_channels_last.
+Runs gpu-bench-resnet50-pytorch-inference.py with random ResNet-50 weights, synthetic images, and bf16 under torch.no_grad(). batch_size: comma-separated sweep. image_size, dtype/precision bf16, warmup_iters, and num_iterations come from yaml. This is a local inference sweep Sweep dimensions: device_id, dtype, image_size, batch_size, warmup_iters, num_iterations, use_channels_last.
 
 ## Parameters
 
@@ -19,7 +19,7 @@ Runs gpu-bench-resnet50-pytorch-inference.py with random ResNet-50 weights, synt
 ## Invocation
 
 ```bash
-Run gpu-bench-resnet50-pytorch-inference.py via collect_resnet50_infer.py; nvidia-smi is sampled on a background thread during the timed loop for GPU utilization, and peak memory comes from torch.cuda.max_memory_allocated
+Run torchvision ResNet-50 eval on synthetic tensors while sampling GPU utilization during the timed loop
 ```
 
 ## Raw Output Format
@@ -43,12 +43,12 @@ Runs gpu-bench-resnet50-pytorch-inference.py with random ResNet-50 weights, synt
 
 ## Installation and Execution Summary
 
-Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list using torchvision ResNet-50 with random weights, synthetic bf16 images, and torch.no_grad(), emit one RESULT line per batch plus a summary, to measure inference images/s and latency. This is not a five-minute server loop
+Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list using torchvision ResNet-50 with random weights, synthetic bf16 images, and torch.no_grad(), emit one RESULT line per batch plus a summary, to measure inference images/s and latency
 
 ## Platform Portability
 
 - **AMD (primary):** ```bash
-Run gpu-bench-resnet50-pytorch-inference.py via collect_resnet50_infer.py; nvidia-smi is sampled on a background thread during the timed loop for GPU utilization, and peak memory comes from torch.cuda.max_memory_allocated
+Run torchvision ResNet-50 eval on synthetic tensors while sampling GPU utilization during the timed loop
 ```
 - **NVIDIA:** Native NVIDIA CUDA workload. Execute on the stated Ubuntu release with the host NVIDIA driver and CUDA userspace. ROCm porting notes do not apply.
 

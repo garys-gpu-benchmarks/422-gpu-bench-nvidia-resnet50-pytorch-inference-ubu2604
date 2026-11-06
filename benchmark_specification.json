@@ -140,6 +140,16 @@
     "value": "-"
   },
   {
+    "field_name": "Validation Objective",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Validates one inference sweep over yaml batch sizes with random weights and synthetic images"
+  },
+  {
+    "field_name": "Command Tools Executed",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Run torchvision ResNet-50 eval on synthetic tensors while sampling GPU utilization during the timed loop"
+  },
+  {
     "field_name": "run_benchmark Command Plus Options for Smoke Run (One minute or less)",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
     "value": "bash run_benchmark.sh --smoke --validate --device-id 0 --dtype bf16 --image-size 64 --batch-size 1,2 --warmup-iters 1 --num-iterations 3 --use-channels-last true"
@@ -155,29 +165,19 @@
     "value": "bash run_benchmark.sh --extended --validate --device-id 0 --dtype bf16 --image-size 224 --batch-size 1,2,4,8,16,32,64,128 --warmup-iters 10 --num-iterations 10500 --use-channels-last true"
   },
   {
-    "field_name": "Validation Objective",
-    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "Validates one inference sweep over yaml batch sizes with random weights and synthetic images"
-  },
-  {
-    "field_name": "Command Tools Executed",
-    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "Run gpu-bench-resnet50-pytorch-inference.py via collect_resnet50_infer.py; nvidia-smi is sampled on a background thread during the timed loop for GPU utilization, and peak memory comes from torch.cuda.max_memory_allocated"
-  },
-  {
     "field_name": "Command Execution Details and Purpose",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list using torchvision ResNet-50 with random weights, synthetic bf16 images, and torch.no_grad(), emit one RESULT line per batch plus a summary, to measure inference images/s and latency. This is not a five-minute server loop"
+    "value": "Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list using torchvision ResNet-50 with random weights, synthetic bf16 images, and torch.no_grad(), emit one RESULT line per batch plus a summary, to measure inference images/s and latency"
   },
   {
     "field_name": "Command Methodology",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list with random-weight ResNet-50, synthetic bf16 images, and torch.no_grad. Emit one RESULT line per batch plus a summary. This is not a five-minute server loop"
+    "value": "Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list with random-weight ResNet-50, synthetic bf16 images, and torch.no_grad. Emit one RESULT line per batch plus a summary"
   },
   {
     "field_name": "Execution Description With Parameters",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "Runs gpu-bench-resnet50-pytorch-inference.py with random ResNet-50 weights, synthetic images, and bf16 under torch.no_grad(). batch_size: comma-separated sweep. image_size, dtype/precision bf16, warmup_iters, and num_iterations come from yaml. This is a local inference sweep, not a five-minute server and not TorchBench"
+    "value": "Runs gpu-bench-resnet50-pytorch-inference.py with random ResNet-50 weights, synthetic images, and bf16 under torch.no_grad(). batch_size: comma-separated sweep. image_size, dtype/precision bf16, warmup_iters, and num_iterations come from yaml. This is a local inference sweep"
   },
   {
     "field_name": "Execution Domain",
@@ -372,12 +372,12 @@
   {
     "field_name": "Installation and Execution Summary",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list using torchvision ResNet-50 with random weights, synthetic bf16 images, and torch.no_grad(), emit one RESULT line per batch plus a summary, to measure inference images/s and latency. This is not a five-minute server loop"
+    "value": "Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list using torchvision ResNet-50 with random weights, synthetic bf16 images, and torch.no_grad(), emit one RESULT line per batch plus a summary, to measure inference images/s and latency"
   },
   {
     "field_name": "Workload Command Line Executable",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "Run gpu-bench-resnet50-pytorch-inference.py via collect_resnet50_infer.py; nvidia-smi is sampled on a background thread during the timed loop for GPU utilization, and peak memory comes from torch.cuda.max_memory_allocated"
+    "value": "Run torchvision ResNet-50 eval on synthetic tensors while sampling GPU utilization during the timed loop"
   },
   {
     "field_name": "ROCm Version",
@@ -392,7 +392,7 @@
   {
     "field_name": "Execution Summary (Run and Measure)",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list using torchvision ResNet-50 with random weights, synthetic bf16 images, and torch.no_grad(), emit one RESULT line per batch plus a summary, to measure inference images/s and latency. This is not a five-minute server loop"
+    "value": "Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list using torchvision ResNet-50 with random weights, synthetic bf16 images, and torch.no_grad(), emit one RESULT line per batch plus a summary, to measure inference images/s and latency"
   },
   {
     "field_name": "nVidia Porting Instructions (Reference Only)",
@@ -412,7 +412,7 @@
   {
     "field_name": "Profile Parameter Values",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Parameters_SmokeBaselineExtend",
-    "value": "{\"device_id\": {\"smoke\": \"0\", \"baseline\": \"0\", \"extended\": \"0\", \"notes\": \"\"}, \"dtype\": {\"smoke\": \"bf16\", \"baseline\": \"bf16\", \"extended\": \"bf16\", \"notes\": \"\"}, \"image_size\": {\"smoke\": \"64\", \"baseline\": \"224\", \"extended\": \"224\", \"notes\": \"\"}, \"batch_size\": {\"smoke\": \"1,2\", \"baseline\": \"1,2,4,8,16,32\", \"extended\": \"1,2,4,8,16,32,64,128\", \"notes\": \"Sweep/list value. Command column documents it; omit this flag so yaml expands cases.\"}, \"warmup_iters\": {\"smoke\": \"1\", \"baseline\": \"5\", \"extended\": \"10\", \"notes\": \"\"}, \"num_iterations\": {\"smoke\": \"3\", \"baseline\": \"4420\", \"extended\": \"10500\", \"notes\": \"H100 2026-08-16 probe 100 -> 13s (6 batch sizes). Predict 1600 -> ~208s. Do not copy AMD 6400. Extended 4600 extrapolated ~10:00, not tested. Retimed 2026-08-17 toward 3-4 min baseline; extended scaled by the same factor. 2026-08-18 retune: baseline>=3min / extended>=10min or extended~15min; NVIDIA copied from AMD. | 2026-09-28 GARY_LEDGER (aggregated_runtime_ledgers_101_201_301_401_20260928_9am; targets baseline 3-5 min, extended 8-15 min): 6400/16200 -> 4500/4600. baseline 6400 measured 5:33/5:37; extended 16200 measured 45:11 (one run). Scaled linearly to ~3:55 / ~12:50. Extended covers batch sizes 64/128, so its per-iteration cost is higher than baseline. Unconfirmed by a fresh run. | 2026-10-19 GARY_LEDGER (runtime_ledger_Aggregate_375_376_377_378_20261019a_845am; targets baseline under 5 min, extended under 15 min): baseline 13350 measured 11:44/11:29 (slower run); fixed start ~10s from smoke; 13350 -> 4420, predicted ~3:59; extended 16200 measured 18:28 (slower run); fixed start ~10s from smoke; 16200 -> 10500, predicted ~12:01. Unconfirmed by a fresh run.\"}, \"use_channels_last\": {\"smoke\": \"true\", \"baseline\": \"true\", \"extended\": \"true\", \"notes\": \"\"}}"
+    "value": "{\"device_id\": {\"smoke\": \"0\", \"baseline\": \"0\", \"extended\": \"0\"}, \"dtype\": {\"smoke\": \"bf16\", \"baseline\": \"bf16\", \"extended\": \"bf16\"}, \"image_size\": {\"smoke\": \"64\", \"baseline\": \"224\", \"extended\": \"224\"}, \"batch_size\": {\"smoke\": \"1,2\", \"baseline\": \"1,2,4,8,16,32\", \"extended\": \"1,2,4,8,16,32,64,128\"}, \"warmup_iters\": {\"smoke\": \"1\", \"baseline\": \"5\", \"extended\": \"10\"}, \"num_iterations\": {\"smoke\": \"3\", \"baseline\": \"4420\", \"extended\": \"10500\"}, \"use_channels_last\": {\"smoke\": \"true\", \"baseline\": \"true\", \"extended\": \"true\"}}"
   },
   {
     "field_name": "Profile Command Authorship",

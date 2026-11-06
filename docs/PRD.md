@@ -15,7 +15,7 @@ This PRD.md section is populated from benchmark_specification.json, which is the
 ResNet-50 BF16 Inference Throughput Sweep
 
 ## Execution Summary (Run and Measure)
-Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list using torchvision ResNet-50 with random weights, synthetic bf16 images, and torch.no_grad(), emit one RESULT line per batch plus a summary, to measure inference images/s and latency. This is not a five-minute server loop
+Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list using torchvision ResNet-50 with random weights, synthetic bf16 images, and torch.no_grad(), emit one RESULT line per batch plus a summary, to measure inference images/s and latency
 
 ## Main Goal
 Measure ResNet-50 BF16 inference throughput
