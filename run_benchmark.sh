@@ -31,10 +31,17 @@ Profiles (default: --smoke):
 
 Parameters (override the profile's value):
   --device-id <value>           Target accelerator or device identifier (smoke/baseline/extended: 0)
-  --dtype <value>               Tensor, element, or storage data type (smoke/baseline/extended: bf16)
+  --dtype <value>               Tensor, element, or storage data type
+                                  all profiles: bf16
   --image-size <value>          Spatial image dimensions (smoke 64, baseline 224, extended 224)
-  --batch-size <n>              Number of items processed together (smoke 1,2, baseline 1,2,4,8,16,32, extended 1,2,4,8,16,32,64,128)
-  --warmup-iters <n>            Untimed warm-up repetitions before measurement (smoke 1, baseline 5, extended 10)
+  --batch-size <n>              Number of items processed together
+                                  smoke:    1,2
+                                  baseline: 1,2,4,8,16,32
+                                  extended: 1,2,4,8,16,32,64,128
+  --warmup-iters <n>            Untimed warm-up repetitions before measurement
+                                  smoke:    1
+                                  baseline: 5
+                                  extended: 10
   --num-iterations <n>          Number of timed repetitions (smoke 3, baseline 4420, extended 10500)
   --use-channels-last <value>   Shared workload parameter (smoke/baseline/extended: true)
 
