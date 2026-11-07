@@ -16,12 +16,11 @@ capture_benchmark_run_command_submitted "$@"
 
 usage() {
   cat <<'USAGE'
+
 Usage: bash run_benchmark.sh [OPTIONS]
 
 Workload Name:          ResNet-50 BF16 Inference Throughput Sweep.
 Main Goal:              Measure ResNet-50 BF16 inference throughput.
-Validation Objective:   Validates one inference sweep over yaml batch sizes with random weights and
-                        synthetic images.
 Command Tools Executed: Run torchvision ResNet-50 eval on synthetic tensors while sampling GPU
                         utilization during the timed loop.
 
