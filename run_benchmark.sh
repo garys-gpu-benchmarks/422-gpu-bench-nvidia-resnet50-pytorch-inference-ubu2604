@@ -19,10 +19,10 @@ usage() {
 
 Usage: bash run_benchmark.sh [OPTIONS]
 
-Workload Name:          ResNet-50 BF16 Inference Throughput Sweep.
-Main Goal:              Measure ResNet-50 BF16 inference throughput.
+Workload Name:          ResNet-50 BF16 Inference Throughput Sweep
+Main Goal:              Measure ResNet-50 BF16 inference throughput
 Command Tools Executed: Run torchvision ResNet-50 eval on synthetic tensors while sampling GPU
-                        utilization during the timed loop.
+                        utilization during the timed loop
 
 Profiles (default: --smoke):
   --smoke                       Run smoke profile
