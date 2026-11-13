@@ -40,6 +40,11 @@
     "value": "Run torchvision ResNet-50 eval on synthetic tensors while sampling GPU utilization during the timed loop"
   },
   {
+    "field_name": "Execution Description With Parameters",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "Runs gpu-bench-resnet50-pytorch-inference.py with random ResNet-50 weights, synthetic images, and bf16 under torch.no_grad(). batch_size: comma-separated sweep. image_size, dtype/precision bf16, warmup_iters, and num_iterations come from yaml. This is a local inference sweep"
+  },
+  {
     "field_name": "Metrics",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
     "value": "#1: Largest-batch inference throughput, images/s (images_per_sec); #2: Largest-batch per-image latency, ms (per_image_latency_msec); #3: Largest-batch latency max, ms (batch_latency_max_msec); #4: Largest-batch GPU utilization (gpu_utilization_percent); #5: Peak GPU memory at largest batch, GB (peak_gpu_memory_gb)"
@@ -173,11 +178,6 @@
     "field_name": "Command Methodology",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
     "value": "Run gpu-bench-resnet50-pytorch-inference.py once over the yaml batch_size list with random-weight ResNet-50, synthetic bf16 images, and torch.no_grad. Emit one RESULT line per batch plus a summary"
-  },
-  {
-    "field_name": "Execution Description With Parameters",
-    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
-    "value": "Runs gpu-bench-resnet50-pytorch-inference.py with random ResNet-50 weights, synthetic images, and bf16 under torch.no_grad(). batch_size: comma-separated sweep. image_size, dtype/precision bf16, warmup_iters, and num_iterations come from yaml. This is a local inference sweep"
   },
   {
     "field_name": "Execution Domain",
